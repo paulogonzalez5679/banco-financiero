@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
+  idInvalid: boolean = false; // Variable para controlar el estado del ID inválido
+  idExist: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,7 +27,6 @@ export class ProductFormComponent implements OnInit {
       date_revision: ['', [Validators.required]]
     });
 
-    // Agregar validaciones personalizadas
     this.productForm.get('date_release')?.setValidators([
       Validators.required,
       this.dateValidator.bind(this)
@@ -41,6 +42,27 @@ export class ProductFormComponent implements OnInit {
     // Cargar datos si es necesario (para edición)
   }
 
+
+  validateID(): void {
+    const productId = this.productForm.value.id;
+    this.productService.verifyProductId(productId).subscribe({
+      next: (response) => {
+        this.idExist = response;
+      },complete: () => {
+        if (this.idExist) {
+          alert('Error al crear el producto! ID existente');
+          this.idInvalid = true;
+        } else {
+          this.createProduct();
+        }
+      },error: (error) => {
+        console.error('Error verifying product ID:', error);
+      }
+    });
+  }
+
+
+
   createProduct(): void {
     if (this.productForm.valid) {
       this.productService.createProduct(this.productForm.value).subscribe(
@@ -55,19 +77,17 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  // Método para reiniciar el formulario
   resetForm(): void {
-    this.productForm.reset(); // Resetea todos los campos del formulario
+    this.productForm.reset();
+    this.idInvalid = false; // Reiniciar el estado de ID inválido
   }
 
-  // Validación de la fecha de liberación
   dateValidator(control: any) {
     const today = new Date();
     const releaseDate = new Date(control.value);
     return releaseDate < today ? { minDate: true } : null;
   }
 
-  // Validación de la fecha de revisión
   dateAfterReleaseValidator(control: any) {
     const releaseDate = new Date(this.productForm.get('date_release')?.value);
     const revisionDate = new Date(control.value);
