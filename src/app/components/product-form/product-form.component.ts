@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
-  idInvalid: boolean = false; // Variable para controlar el estado del ID inválido
+  idInvalid: boolean = false;
   idExist: boolean = false;
 
   constructor(
@@ -79,14 +79,18 @@ export class ProductFormComponent implements OnInit {
 
   resetForm(): void {
     this.productForm.reset();
-    this.idInvalid = false; // Reiniciar el estado de ID inválido
+    this.idInvalid = false;
   }
 
   dateValidator(control: any) {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const releaseDate = new Date(control.value);
+    releaseDate.setHours(0, 0, 0, 0);
+
     return releaseDate < today ? { minDate: true } : null;
   }
+
 
   dateAfterReleaseValidator(control: any) {
     const releaseDate = new Date(this.productForm.get('date_release')?.value);

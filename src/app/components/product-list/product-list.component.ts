@@ -11,9 +11,12 @@ export class ProductListComponent implements OnInit {
   products: any[] = [];
   filteredProducts: any[] = [];
   searchTerm: string = '';
-
+  showModal: boolean = false;
+  selectedProductTitle = '';
   currentPage: number = 1;
   itemsPerPage: number = 10;
+  selectedProductId: string | null = null;
+  selectedProductName: string = '';
 
   constructor(private productService: ProductService, private router: Router) {}
 
@@ -47,17 +50,30 @@ export class ProductListComponent implements OnInit {
     this.router.navigate([`/edit/${id}`]);
   }
 
-  deleteProduct(id: string): void {
-    if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-      this.productService.deleteProduct(id).subscribe(
+
+  openDeleteModal(id: string, name: string): void {
+    this.selectedProductId = id;
+    this.selectedProductName = name;
+    this.showModal = true;
+  }
+
+  cancelDelete(): void {
+    this.showModal = false;
+    this.selectedProductId = null;
+  }
+
+  confirmDelete(): void {
+    if (this.selectedProductId) {
+      this.productService.deleteProduct(this.selectedProductId).subscribe(
         () => {
-          alert('Producto eliminado con éxito');
-          this.loadProducts(); // Recargar productos después de eliminar uno
+          this.loadProducts();
         },
         error => {
-          alert('Error al eliminar el producto');
+          console.error('Error al eliminar el producto');
         }
       );
+      this.showModal = false;
+      this.selectedProductId = null;
     }
   }
 

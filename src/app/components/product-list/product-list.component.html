@@ -31,7 +31,9 @@
           <td>{{ product.date_revision }}</td>
           <td>
             <button (click)="editProduct(product.id)">Editar</button>
-            <button (click)="deleteProduct(product.id)">Eliminar</button>
+            <button (click)="openDeleteModal(product.id, product.name)">
+              Eliminar
+            </button>
           </td>
         </tr>
       </tbody>
@@ -42,3 +44,13 @@
     </div>
   </div>
 </body>
+
+<div *ngIf="showModal" class="modal">
+  <div class="container-modal">
+    <h2>¿Estás seguro de eliminar el producto "{{ selectedProductName }}"?</h2>
+    <div class="buttons-modal">
+      <button class="cancel-modal button-modal" (click)="cancelDelete()">Cancelar</button>
+      <button class="confirm-modal button-modal" (click)="confirmDelete()">Confirmar</button>
+    </div>
+  </div>
+</div>
