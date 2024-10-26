@@ -92,4 +92,16 @@ export class ProductListComponent implements OnInit {
     this.currentPage++;
     this.loadProducts();
   }
+
+  // Método para paginar productos
+  paginatedProducts(): any[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredProducts.slice(start, start + this.itemsPerPage);
+  }
+
+  updatePagination(): void {
+    this.currentPage = 1; // Reinicia a la primera página al cambiar la cantidad de registros
+    this.loadProducts(); // Carga nuevamente los productos para aplicar la nueva cantidad
+  }
+
 }

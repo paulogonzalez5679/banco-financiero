@@ -4,6 +4,7 @@ body {
   background-color: #f2f2f2;
   margin: 0;
   padding: 0;
+  height: 100vh;
 }
 
 .container {
@@ -134,4 +135,29 @@ h2 {
 .confirm-modal {
   background-color: #fdd835;
   color: #333;
+}
+
+.record-count {
+  display: flex; /* Utiliza flexbox para alinear los elementos */
+  justify-content: space-between; /* Espacia los elementos al máximo */
+  align-items: center; /* Alinea verticalmente */
+  margin-top: 10px; /* Espaciado superior */
+}
+
+.record-count span {
+  margin-right: 10px; /* Espacio entre el texto y el select */
+}
+
+.records-per-page {
+  margin-left: auto; /* Alinea el select a la derecha */
+}
+
+
+#recordsPerPage {
+  width: 4.5rem; /* Ajusta este valor según lo ancho que desees que sea el select */
+  padding: 5px; /* Añade un poco de padding para mejorar la apariencia */
+  border-radius: 4px; /* Opcional: esquinas redondeadas */
+  border: 1px solid #030303; /* Color del borde */
+  background-color: #ffffff; /* Color de fondo */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el select */
 }

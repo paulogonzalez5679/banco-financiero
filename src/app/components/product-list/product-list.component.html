@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of filteredProducts">
+        <tr *ngFor="let product of paginatedProducts()">
           <td>{{ product.logo }}</td>
           <td>{{ product.name }}</td>
           <td>{{ product.description }}</td>
@@ -38,6 +38,14 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- Contenedor flex para la cantidad de registros y el select -->
+    <div class="record-count">
+      <span>Total de registros: {{ filteredProducts.length }}</span>
+      <select id="recordsPerPage" [(ngModel)]="itemsPerPage" (change)="updatePagination()">
+        <option *ngFor="let option of [5, 10, 20]" [value]="option">{{ option }}</option>
+      </select>
+    </div>
   </div>
 </body>
 
