@@ -25,7 +25,7 @@ export class ProductFormComponent implements OnInit {
       id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-      logo: ['', [Validators.required, this.imageUrlValidator.bind(this)]], // Aplicar el validador aquí
+      logo: ['', [Validators.required, this.imageUrlValidator.bind(this)]],
       date_release: ['', [Validators.required]],
       date_revision: ['', [Validators.required]]
     });
@@ -47,12 +47,12 @@ export class ProductFormComponent implements OnInit {
 
   getTypeAction() {
     this.route.queryParams.subscribe(params => {
-      this.isEdit = params['isEdit'] === 'true'; // Verifica si isEdit es 'true'
+      this.isEdit = params['isEdit'] === 'true';
       if (this.isEdit) {
         this.productService.currentProduct.subscribe(product => {
           this.product = product;
           if (this.product) {
-            // Llenar el formulario con los datos del producto
+
             this.productForm.patchValue({
               id: this.product.id,
               name: this.product.name,
@@ -61,7 +61,7 @@ export class ProductFormComponent implements OnInit {
               date_release: this.product.date_release,
               date_revision: this.product.date_revision
             });
-            // Deshabilitar el campo ID si estamos en modo edición
+
             this.productForm.get('id')?.disable();
           }
         });
@@ -80,7 +80,7 @@ export class ProductFormComponent implements OnInit {
           alert('Error al crear el producto! ID existente');
           this.idInvalid = true;
         } else {
-          this.isEdit ? this.updateProduct() : this.createProduct(); // Llama al método correspondiente
+          this.isEdit ? this.updateProduct() : this.createProduct();
         }
       },
       error: (error) => {
