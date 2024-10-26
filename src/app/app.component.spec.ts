@@ -1,35 +1,32 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterModule.forRoot([])
-      ],
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'banco-financiero'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('banco-financiero');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, banco-financiero');
+  });
+
+  it('debería crear el componente', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('debería tener como título "banco-financiero"', () => {
+    expect(component.title).toEqual('banco-financiero');
+  });
+
+  it('debería mostrar el título en el HTML', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('p').textContent).toContain('Hello, banco-financiero');
   });
 });
