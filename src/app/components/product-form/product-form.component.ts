@@ -125,7 +125,19 @@ export class ProductFormComponent implements OnInit {
   }
 
   resetForm(): void {
-    this.productForm.reset();
+    if (this.isEdit) {
+      const idValue = this.productForm.get('id')?.value;
+      this.productForm.reset({
+        id: idValue,
+        name: '',
+        description: '',
+        logo: '',
+        date_release: '',
+        date_revision: ''
+      });
+    } else {
+      this.productForm.reset();
+    }
     this.idInvalid = false;
   }
 

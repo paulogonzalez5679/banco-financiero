@@ -11,6 +11,8 @@
       />
       <button class="button" (click)="addProduct()">Añadir</button>
     </header>
+
+    <!-- Tabla de productos -->
     <table>
       <thead>
         <tr>
@@ -23,30 +25,43 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of paginatedProducts()">
-          <td>
-            <img [src]="product.logo" alt="{{ product.name }}" class="product-logo" />
-          </td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.description }}</td>
-          <td>{{ product.date_release }}</td>
-          <td>{{ product.date_revision }}</td>
-          <td>
-            <div class="options-container">
-              <button class="options-button" (click)="toggleOptions(product.id)">
-                &#x22EE;
-              </button>
-              <div *ngIf="selectedProductId === product.id" class="options-menu">
-                <button (click)="editProduct(product.id)">Editar</button>
-                <button (click)="openDeleteModal(product.id, product.name)">Eliminar</button>
+        <!-- Mostrar mensaje si no hay productos -->
+        <ng-container *ngIf="filteredProducts.length === 0">
+          <tr>
+            <td colspan="6" class="no-products-message">
+              No hay productos almacenados.
+            </td>
+          </tr>
+        </ng-container>
+
+        <!-- Mostrar productos si existen -->
+        <ng-container *ngIf="filteredProducts.length > 0">
+          <tr *ngFor="let product of paginatedProducts()">
+            <td>
+              <img [src]="product.logo" alt="{{ product.name }}" class="product-logo" />
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.date_release }}</td>
+            <td>{{ product.date_revision }}</td>
+            <td>
+              <div class="options-container">
+                <button class="options-button" (click)="toggleOptions(product.id)">
+                  &#x22EE;
+                </button>
+                <div *ngIf="selectedProductId === product.id" class="options-menu">
+                  <button (click)="editProduct(product.id)">Editar</button>
+                  <button (click)="openDeleteModal(product.id, product.name)">Eliminar</button>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
 
-    <div class="record-count">
+    <!-- Contador de registros y selección de registros por página -->
+    <div class="record-count" *ngIf="filteredProducts.length > 0">
       <span>{{ filteredProducts.length }} Registros</span>
       <select id="recordsPerPage" [(ngModel)]="itemsPerPage" (change)="updatePagination()">
         <option *ngFor="let option of [5, 10, 20]" [value]="option">{{ option }}</option>
@@ -55,6 +70,7 @@
   </div>
 </body>
 
+<!-- Modal de confirmación para eliminar producto -->
 <div *ngIf="showModal" class="modal">
   <div class="container-modal">
     <h2>¿Estás seguro de eliminar el producto "{{ selectedProductName }}"?</h2>
