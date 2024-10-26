@@ -24,23 +24,30 @@
       </thead>
       <tbody>
         <tr *ngFor="let product of paginatedProducts()">
-          <td>{{ product.logo }}</td>
+          <td>
+            <img [src]="product.logo" alt="{{ product.name }}" class="product-logo" />
+          </td>
           <td>{{ product.name }}</td>
           <td>{{ product.description }}</td>
           <td>{{ product.date_release }}</td>
           <td>{{ product.date_revision }}</td>
           <td>
-            <button (click)="editProduct(product.id)">Editar</button>
-            <button (click)="openDeleteModal(product.id, product.name)">
-              Eliminar
-            </button>
+            <div class="options-container">
+              <button class="options-button" (click)="toggleOptions(product.id)">
+                &#x22EE;
+              </button>
+              <div *ngIf="selectedProductId === product.id" class="options-menu">
+                <button (click)="editProduct(product.id)">Editar</button>
+                <button (click)="openDeleteModal(product.id, product.name)">Eliminar</button>
+              </div>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
 
     <div class="record-count">
-      <span>Total de registros: {{ filteredProducts.length }}</span>
+      <span>{{ filteredProducts.length }} Registros</span>
       <select id="recordsPerPage" [(ngModel)]="itemsPerPage" (change)="updatePagination()">
         <option *ngFor="let option of [5, 10, 20]" [value]="option">{{ option }}</option>
       </select>

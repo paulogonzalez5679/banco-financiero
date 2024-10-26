@@ -116,8 +116,15 @@
             >
               El campo es requerido.
             </div>
+            <div
+              *ngIf="productForm.controls['logo'].hasError('invalidUrl')"
+              class="error"
+            >
+              La URL debe ser una dirección válida de una imagen (png, jpg, jpeg, gif).
+            </div>
           </div>
         </div>
+
       </div>
 
       <div class="form-row">

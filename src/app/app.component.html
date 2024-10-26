@@ -1,54 +1,59 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {
-  background-color: white;
-  margin: 0;
-}
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Logo Banco</title>
+      <style>
+          body {
+              background-color: white;
+              margin: 0;
+          }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10vh;
-}
+          .container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 10vh;
+          }
 
-.logo {
-  display: flex;
-  align-items: center;
-}
+          .logo {
+              display: flex;
+              align-items: center;
+          }
 
-.icon {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  border: 2px solid #333;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  color: #333;
-}
+          .icon {
+              width: 30px; /* Ajusta según el tamaño de tu logo */
+              height: 30px; /* Ajusta según el tamaño de tu logo */
+              margin-right: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+          }
 
-.text {
-  font-family: sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-</style>
-</head>
-<body>
-<div class="container">
-  <div class="logo">
-    <div class="icon">
-      <div class="square">  </div>
-    </div>
-    <div class="text">BANCO</div>
-  </div>
-</div>
-</body>
-</html>
-<router-outlet />
+          .icon img {
+              width: 100%; /* Hace que la imagen ocupe el espacio disponible */
+              height: auto; /* Mantiene la proporción */
+              border-radius: 5px; /* Esquinas redondeadas opcionalmente */
+          }
+
+          .text {
+              font-family: sans-serif;
+              font-size: 24px;
+              font-weight: bold;
+              color: #333;
+          }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <div class="logo">
+              <div class="icon">
+                  <img src="bancoLogo.png" alt="Logo Banco" />
+              </div>
+              <div class="text">BANCO</div>
+          </div>
+      </div>
+      <router-outlet></router-outlet>
+  </body>
+  </html>

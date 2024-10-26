@@ -138,26 +138,66 @@ h2 {
 }
 
 .record-count {
-  display: flex; /* Utiliza flexbox para alinear los elementos */
-  justify-content: space-between; /* Espacia los elementos al máximo */
-  align-items: center; /* Alinea verticalmente */
-  margin-top: 10px; /* Espaciado superior */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .record-count span {
-  margin-right: 10px; /* Espacio entre el texto y el select */
+  margin-right: 10px;
 }
 
 .records-per-page {
-  margin-left: auto; /* Alinea el select a la derecha */
+  margin-left: auto;
 }
 
 
 #recordsPerPage {
-  width: 4.5rem; /* Ajusta este valor según lo ancho que desees que sea el select */
-  padding: 5px; /* Añade un poco de padding para mejorar la apariencia */
-  border-radius: 4px; /* Opcional: esquinas redondeadas */
-  border: 1px solid #030303; /* Color del borde */
-  background-color: #ffffff; /* Color de fondo */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el select */
+  width: 4.5rem;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #030303;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.options-container {
+  position: relative;
+}
+
+.options-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.options-menu {
+  position: absolute;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.options-menu button {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.options-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+.product-logo {
+  width: 50px;
+  height: auto;
+  border-radius: 4px;
 }

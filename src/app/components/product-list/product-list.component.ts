@@ -103,4 +103,8 @@ export class ProductListComponent implements OnInit {
     this.loadProducts();
   }
 
+  toggleOptions(productId: string): void {
+    this.selectedProductId = this.selectedProductId === productId ? null : productId;
+  }
+
 }

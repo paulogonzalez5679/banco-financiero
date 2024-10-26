@@ -25,7 +25,7 @@ export class ProductFormComponent implements OnInit {
       id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-      logo: ['', [Validators.required]],
+      logo: ['', [Validators.required, this.imageUrlValidator.bind(this)]], // Aplicar el validador aquí
       date_release: ['', [Validators.required]],
       date_revision: ['', [Validators.required]]
     });
@@ -141,5 +141,10 @@ export class ProductFormComponent implements OnInit {
     const releaseDate = new Date(this.productForm.get('date_release')?.value);
     const revisionDate = new Date(control.value);
     return revisionDate.getFullYear() <= releaseDate.getFullYear() ? { dateAfterRelease: true } : null;
+  }
+
+  imageUrlValidator(control: any) {
+    const urlPattern = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i;
+    return urlPattern.test(control.value) ? null : { invalidUrl: true };
   }
 }
