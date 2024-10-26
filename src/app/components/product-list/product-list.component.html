@@ -39,7 +39,6 @@
       </tbody>
     </table>
 
-    <!-- Contenedor flex para la cantidad de registros y el select -->
     <div class="record-count">
       <span>Total de registros: {{ filteredProducts.length }}</span>
       <select id="recordsPerPage" [(ngModel)]="itemsPerPage" (change)="updatePagination()">
