@@ -1,18 +1,23 @@
 <div class="body">
   <div class="container">
     <h2>Formulario de Registro</h2>
-    <form [formGroup]="productForm" (ngSubmit)="createProduct()">
+    <form [formGroup]="productForm" (ngSubmit)="validateID()">
       <div class="form-row">
         <div class="form-group">
           <label>ID:</label>
-          <input formControlName="id" type="text" [ngClass]="{'invalid': idInvalid}" />
+          <input
+            formControlName="id"
+            type="text"
+            [ngClass]="{ invalid: idInvalid }"
+          />
           <div *ngIf="idInvalid" class="error">
             ID inválido. Este ID ya está registrado.
           </div>
           <div
             *ngIf="
               productForm.controls['id'].invalid &&
-              productForm.controls['id'].touched && !idInvalid
+              productForm.controls['id'].touched &&
+              !idInvalid
             "
           >
             <div
@@ -175,15 +180,17 @@
           </div>
         </div>
       </div>
+
       <div class="button-container">
-        <button type="button" class="cancel-button" (click)="validateID()">Reiniciar</button>
+        <button type="button" class="cancel-button" (click)="resetForm()">
+          Reiniciar
+        </button>
         <button
           type="submit"
           [disabled]="productForm.invalid"
           [ngClass]="{ 'disabled-button': productForm.invalid }"
-          (click)="productForm.invalid ? $event.preventDefault() : null"
         >
-          Crear Producto
+          {{ isEdit ? "Editar Producto" : "Crear Producto" }}
         </button>
       </div>
     </form>

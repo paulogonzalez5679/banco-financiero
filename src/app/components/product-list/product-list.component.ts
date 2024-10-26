@@ -25,8 +25,8 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.productService.getProducts().subscribe((products: any[]) => {
-      this.products = products[0];
+    this.productService.getProducts().subscribe((response: any) => {
+      this.products = response.data;
       this.filteredProducts = this.products;
     });
   }
@@ -47,7 +47,11 @@ export class ProductListComponent implements OnInit {
   }
 
   editProduct(id: string): void {
-    this.router.navigate([`/edit/${id}`]);
+    const productToEdit = this.filteredProducts.find(product => product.id === id);
+    if (productToEdit) {
+      this.productService.changeProduct(productToEdit);
+      this.router.navigate([`/edit/${id}`], { queryParams: { isEdit: true } });
+    }
   }
 
 
@@ -69,7 +73,7 @@ export class ProductListComponent implements OnInit {
           this.loadProducts();
         },
         error => {
-          console.error('Error al eliminar el producto');
+          alert('Error al eliminar el producto: '+ error);
         }
       );
       this.showModal = false;

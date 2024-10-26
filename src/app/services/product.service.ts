@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private apiUrl = 'http://localhost:3002/bp/products';
+
+  private productSource = new BehaviorSubject<any>(null);
+  currentProduct = this.productSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -32,5 +35,9 @@ export class ProductService {
 
   verifyProductId(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/verification/${id}`);
+  }
+
+  changeProduct(product: any) {
+    this.productSource.next(product);
   }
 }
